@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .todo-checkbox {
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Notes</h1>
+        <div id="notes-content">
+            <!-- Notes will be loaded here -->
+        </div>
+    </div>
+    <script>
+        // Function to convert markdown-like text to HTML
+        function convertToHTML(text) {
+            // Convert headers
+            text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+            text = text.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+            
+            // Convert lists
+            text = text.replace(/^- (.*$)/gm, '<li>$1</li>');
+            text = text.replace(/^- \[ \] (.*$)/gm, '<li class="todo-item"><input type="checkbox" class="todo-checkbox">$1</li>');
+            text = text.replace(/^- \[x\] (.*$)/gm, '<li class="todo-item"><input type="checkbox" class="todo-checkbox" checked>$1</li>');
+            
+            // Wrap lists in ul tags
+            text = text.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+            
+            return text;
+        }
+
+        // Function to load and display notes
+        function loadNotes() {
+            fetch('notes.txt')
+                .then(response => response.text())
+                .then(text => {
+                    const notesContent = document.getElementById('notes-content');
+                    notesContent.innerHTML = convertToHTML(text);
+                })
+                .catch(error => {
+                    console.error('Error loading notes:', error);
+                    document.getElementById('notes-content').innerHTML = 
+                        '<p>Error loading notes. Please make sure notes.txt exists.</p>';
+                });
+        }
+
+        // Load notes when the page loads
+        window.onload = loadNotes;
+    </script>
+</body>
+</html> 
