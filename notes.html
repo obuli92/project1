@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character encoding and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Notes</title>
+    
+    <!-- Main styles for the notes page -->
     <style>
+        /* Base styles for the entire page */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -13,6 +17,8 @@
             background-color: #f5f5f5;
             color: #333;
         }
+
+        /* Container for the main content */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -21,6 +27,8 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
+        /* Header section with title and navigation */
         .header {
             display: flex;
             justify-content: space-between;
@@ -29,6 +37,8 @@
             padding-bottom: 20px;
             border-bottom: 2px solid #eee;
         }
+
+        /* Heading styles */
         h1 {
             color: #2c3e50;
             margin: 0;
@@ -37,12 +47,16 @@
             color: #3498db;
             margin-top: 30px;
         }
+
+        /* List styles for notes */
         ul {
             padding-left: 20px;
         }
         li {
             margin-bottom: 8px;
         }
+
+        /* Todo item styling */
         .todo-item {
             display: flex;
             align-items: center;
@@ -52,6 +66,8 @@
             width: 18px;
             height: 18px;
         }
+
+        /* Navigation links styling */
         .nav-links {
             display: flex;
             gap: 15px;
@@ -71,7 +87,9 @@
     </style>
 </head>
 <body>
+    <!-- Main content container -->
     <div class="container">
+        <!-- Header with title and navigation -->
         <div class="header">
             <h1>My Notes</h1>
             <div class="nav-links">
@@ -79,12 +97,20 @@
                 <a href="projects.html">My Projects</a>
             </div>
         </div>
+
+        <!-- Container for dynamically loaded notes -->
         <div id="notes-content">
             <!-- Notes will be loaded here -->
         </div>
     </div>
+
+    <!-- JavaScript for notes functionality -->
     <script>
-        // Function to convert markdown-like text to HTML
+        /**
+         * Converts markdown-like text to HTML
+         * @param {string} text - The markdown text to convert
+         * @returns {string} - The converted HTML
+         */
         function convertToHTML(text) {
             // Convert headers
             text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
@@ -101,7 +127,9 @@
             return text;
         }
 
-        // Function to load and display notes
+        /**
+         * Loads and displays notes from the notes.txt file
+         */
         function loadNotes() {
             fetch('data/notes.txt')
                 .then(response => response.text())
