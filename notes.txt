@@ -1,0 +1,13 @@
+# Project Notes
+
+## General Notes
+- Add your notes here
+
+## To-Do List
+- [ ] Add tasks here
+
+## Important Links
+- Add important links here
+
+## Meeting Notes
+- Add meeting notes here 
